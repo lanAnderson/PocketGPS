@@ -5,6 +5,7 @@ import club.iananderson.pocketgps.client.PocketGpsClient;
 import club.iananderson.pocketgps.config.PocketGpsConfig;
 import club.iananderson.pocketgps.impl.accessories.AccessoriesCompat;
 import club.iananderson.pocketgps.items.properties.GpsItemProperties;
+import club.iananderson.pocketgps.registry.ModItems;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,11 +19,11 @@ public final class PocketGpsFabricClient implements ClientModInitializer {
                                           "pocketgps-common.toml");
 
     PocketGps.clientInit();
-    ItemProperties.register(PocketGps.GPS.get(), PocketGps.TOGGLE_GPS, new GpsItemProperties());
+    ItemProperties.register(ModItems.GPS.get(), PocketGps.TOGGLE_GPS, new GpsItemProperties());
 
     if (PocketGps.accessoriesLoaded() && !PocketGps.trinketsLoaded()) {
       PocketGps.LOG.info("Talking to Accessories Client");
-      AccessoriesCompat.clientInit(PocketGps.GPS.get());
+      AccessoriesCompat.clientInit(ModItems.GPS.get());
     }
 
     ClientTickEvents.END_CLIENT_TICK.register(client -> {

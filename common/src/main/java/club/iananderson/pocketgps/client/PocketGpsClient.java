@@ -5,6 +5,7 @@ import club.iananderson.pocketgps.impl.accessories.AccessoriesCompat;
 import club.iananderson.pocketgps.impl.curios.CuriosCompat;
 import club.iananderson.pocketgps.impl.trinkets.TrinketsCompat;
 import club.iananderson.pocketgps.minimap.CurrentMinimap;
+import club.iananderson.pocketgps.registry.ModItems;
 import club.iananderson.pocketgps.util.ItemUtil;
 import club.iananderson.pocketgps.util.NBTUtil;
 import net.minecraft.client.Minecraft;
@@ -22,7 +23,7 @@ public class PocketGpsClient {
     int max = inventory.getContainerSize();
     for (int i = 0; i < max; ++i) {
       ItemStack itemstack = inventory.getItem(i);
-      if (itemstack.is(PocketGps.GPS.get())) {
+      if (itemstack.is(ModItems.GPS.get())) {
         return itemstack;
       }
     }
@@ -37,11 +38,11 @@ public class PocketGpsClient {
     ItemStack offhandItem = player.getOffhandItem();
     ItemStack inventoryItem = getGpsFromInventory(inv);
 
-    if (mainHandItem.is(PocketGps.GPS.get())) {
+    if (mainHandItem.is(ModItems.GPS.get())) {
       return mainHandItem;
     }
     // then offhand
-    if (offhandItem.is(PocketGps.GPS.get())) {
+    if (offhandItem.is(ModItems.GPS.get())) {
       return offhandItem;
     }
     //then Accessories
@@ -80,17 +81,20 @@ public class PocketGpsClient {
     if (getCurrentActiveGps().isEmpty() && isDrawingMap()) {
       CurrentMinimap.removeMinimap(player);
       setIsDrawingMap(false);
-    } else if (!getCurrentActiveGps().isEmpty()) {
+    }
+    else if (!getCurrentActiveGps().isEmpty()) {
       boolean hasPower = NBTUtil.getInt(gps, PocketGps.ENERGY_TAG) > 0;
       boolean gpsOn = ItemUtil.isGpsOn(getCurrentActiveGps());
 
       if (isDrawingMap() && (!gpsOn || (PocketGps.gpsNeedPower() && !hasPower))) {
         CurrentMinimap.removeMinimap(player);
         setIsDrawingMap(false);
-      } else if (!isDrawingMap() && PocketGps.gpsNeedPower() && gpsOn && hasPower) {
+      }
+      else if (!isDrawingMap() && PocketGps.gpsNeedPower() && gpsOn && hasPower) {
         CurrentMinimap.displayMinimap(player);
         setIsDrawingMap(true);
-      } else if (!isDrawingMap() && !PocketGps.gpsNeedPower() && gpsOn) {
+      }
+      else if (!isDrawingMap() && !PocketGps.gpsNeedPower() && gpsOn) {
         CurrentMinimap.displayMinimap(player);
         setIsDrawingMap(true);
       }

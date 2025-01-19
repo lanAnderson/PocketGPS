@@ -4,6 +4,7 @@ import club.iananderson.pocketgps.PocketGps;
 import club.iananderson.pocketgps.client.PocketGpsClient;
 import club.iananderson.pocketgps.config.PocketGpsConfig;
 import club.iananderson.pocketgps.forge.impl.curios.CuriosCompat;
+import club.iananderson.pocketgps.forge.registry.ForgeItems;
 import club.iananderson.pocketgps.forge.registry.ForgeRegistration;
 import club.iananderson.pocketgps.impl.accessories.AccessoriesCompat;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,7 +51,7 @@ public final class PocketGpsForge {
       }
       if (PocketGps.accessoriesLoaded() && !PocketGps.curiosLoaded()) {
         PocketGps.LOG.info("Talking to Accessories");
-        AccessoriesCompat.init(ForgeRegistration.POCKET_GPS.get());
+        AccessoriesCompat.init(ForgeItems.POCKET_GPS.get());
       }
       PocketGps.clientInit();
     }

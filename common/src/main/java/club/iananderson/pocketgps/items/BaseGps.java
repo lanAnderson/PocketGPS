@@ -41,7 +41,8 @@ public abstract class BaseGps extends Item {
 
     if (currentMinimaps.isEmpty()) {
       loadedMinimap = Component.translatable("minimap.pocketgps.none");
-    } else {
+    }
+    else {
       loadedMinimap = currentMinimaps.get(0).getModName();
     }
 
@@ -62,7 +63,8 @@ public abstract class BaseGps extends Item {
     if (Screen.hasShiftDown()) {
       tooltip.addAll(expandedTooltips());
 
-    } else {
+    }
+    else {
       tooltip.add(Component.translatable("item.pocketgps.gps.tooltip.default").withStyle(ChatFormatting.YELLOW));
     }
 

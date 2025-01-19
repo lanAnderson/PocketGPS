@@ -3,9 +3,7 @@ package club.iananderson.pocketgps;
 import club.iananderson.pocketgps.config.PocketGpsConfig;
 import club.iananderson.pocketgps.energy.EnergyUnit;
 import club.iananderson.pocketgps.platform.Services;
-import java.util.function.Supplier;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +13,6 @@ public final class PocketGps {
   public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
   public static String ENERGY_TAG = "energy";
   public static String TOGGLE_GPS_TAG = "toggle_gps";
-  public static Supplier<Item> GPS;
   public static ResourceLocation TOGGLE_GPS = new ResourceLocation(MOD_ID, TOGGLE_GPS_TAG);
   private static boolean accessoriesLoaded;
   private static boolean curiosLoaded;
@@ -28,7 +25,6 @@ public final class PocketGps {
   private static int gpsMaxOutput;
   private static int gpsEnergyCost;
 
-  //public static final GpsItem POCKET_GPS = new GpsItem();
   private PocketGps() {
   }
 

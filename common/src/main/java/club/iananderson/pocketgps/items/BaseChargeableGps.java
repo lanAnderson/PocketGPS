@@ -97,7 +97,8 @@ public abstract class BaseChargeableGps extends BaseGps implements ItemEnergySto
   public float getEnergyPercentage(ItemStack energyStorage) {
     if (!PocketGps.gpsNeedPower()) {
       return 1;
-    } else {
+    }
+    else {
       float energyStored = getEnergy(energyStorage);
       float energyCapacity = getCapacity();
 
@@ -110,7 +111,8 @@ public abstract class BaseChargeableGps extends BaseGps implements ItemEnergySto
 
     if (storedEnergy < 1000 || Screen.hasShiftDown()) {
       return TextUtil.commaFormat.format(storedEnergy);
-    } else {
+    }
+    else {
       return TextUtil.kFormat.format(storedEnergy / 1000);
     }
   }
@@ -120,7 +122,8 @@ public abstract class BaseChargeableGps extends BaseGps implements ItemEnergySto
 
     if (energyCapacity < 1000 || Screen.hasShiftDown()) {
       return TextUtil.commaFormat.format(energyCapacity);
-    } else {
+    }
+    else {
       return TextUtil.kFormat.format(energyCapacity / 1000);
     }
   }
