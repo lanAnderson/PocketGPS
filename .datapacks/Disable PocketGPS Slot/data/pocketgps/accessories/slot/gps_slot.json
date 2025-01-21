@@ -1,0 +1,7 @@
+{
+  "replace": true,
+  "icon": "pocketgps:gui/slot/gps_slot",
+  "amount": 0,
+  "order": -256,
+  "operation": "set"
+}
