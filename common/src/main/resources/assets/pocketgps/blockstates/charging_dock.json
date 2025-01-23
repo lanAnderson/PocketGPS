@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "pocketgps:block/charging_dock" }
+  }
+}
