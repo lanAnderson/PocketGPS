@@ -14,7 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class PocketGpsClient {
   private static ItemStack currentActiveGps = ItemStack.EMPTY;
-  private static boolean isDrawingMap = false;
+  private static boolean isDrawingMap;
+  private static boolean initializedMapState;
 
   @NotNull
   private static ItemStack getGpsFromInventory(Inventory inventory) {
@@ -68,30 +69,27 @@ public class PocketGpsClient {
   }
 
   public static void cachePlayerState(Player player) {
-    if (player != Minecraft.getInstance().player) {
-      return;
+//    if (player != Minecraft.getInstance().player) {
+//      return;
+//    }
+
+    currentActiveGps = getGpsFromPlayer(player);
+    boolean validGps = isValidGPS(currentActiveGps);
+
+    if(!initializedMapState){
+      setIsDrawingMap(!validGps);
+      setInitializedMapState(true);
     }
 
-    ItemStack gps = getGpsFromPlayer(player);
-
-    currentActiveGps = gps;
-
-    if (getCurrentActiveGps().isEmpty() && isDrawingMap()) {
+    if (getCurrentActiveGps().isEmpty()) {
       CurrentMinimap.removeMinimap(player);
-      setIsDrawingMap(false);
-    } else if (!getCurrentActiveGps().isEmpty()) {
-      boolean hasPower = NBTUtil.getInt(gps, PocketGps.ENERGY_TAG) > 0;
-      boolean gpsOn = ItemUtil.isGpsOn(getCurrentActiveGps());
-
-      if (isDrawingMap() && (!gpsOn || (PocketGps.gpsNeedPower() && !hasPower))) {
+    }
+    else if (!getCurrentActiveGps().isEmpty()) {
+      if (!validGps) {
         CurrentMinimap.removeMinimap(player);
-        setIsDrawingMap(false);
-      } else if (!isDrawingMap() && PocketGps.gpsNeedPower() && gpsOn && hasPower) {
+      }
+      else {
         CurrentMinimap.displayMinimap(player);
-        setIsDrawingMap(true);
-      } else if (!isDrawingMap() && !PocketGps.gpsNeedPower() && gpsOn) {
-        CurrentMinimap.displayMinimap(player);
-        setIsDrawingMap(true);
       }
     }
   }
@@ -100,11 +98,31 @@ public class PocketGpsClient {
     return currentActiveGps;
   }
 
-  public static void setIsDrawingMap(boolean state) {
-    isDrawingMap = state;
+  public static boolean isValidGPS(ItemStack gps) {
+    boolean hasPower = NBTUtil.getInt(gps, PocketGps.ENERGY_TAG) > 0;
+    boolean gpsOn = ItemUtil.isGpsOn(getCurrentActiveGps());
+
+    if (PocketGps.gpsNeedPower()) {
+      return gpsOn && hasPower;
+    }
+    else {
+      return gpsOn;
+    }
   }
 
   public static boolean isDrawingMap() {
     return isDrawingMap;
+  }
+
+  public static void setIsDrawingMap(boolean state) {
+    PocketGpsClient.isDrawingMap = state;
+  }
+
+  public static boolean isInitializedMapState() {
+    return initializedMapState;
+  }
+
+  public static void setInitializedMapState(boolean state) {
+    PocketGpsClient.initializedMapState = state;
   }
 }
