@@ -54,7 +54,7 @@ public class CurrentMinimap {
       return;
     }
 
-    if (journeyMapLoaded() && player.level().isClientSide) {
+    if (journeyMapLoaded() && player.level.isClientSide) {
       UIManager.INSTANCE.setMiniMapEnabled(true);
     }
 
@@ -70,7 +70,7 @@ public class CurrentMinimap {
       }
     }
 
-    if (onlyFtbChunksLoaded() && player.level().isClientSide) {
+    if (onlyFtbChunksLoaded() && player.level.isClientSide) {
       FTBChunksClientConfig.MINIMAP_ENABLED.set(true);
     }
 
@@ -82,7 +82,7 @@ public class CurrentMinimap {
       return;
     }
 
-    if (journeyMapLoaded() && player.level().isClientSide) {
+    if (journeyMapLoaded() && player.level.isClientSide) {
       UIManager.INSTANCE.setMiniMapEnabled(false);
     }
 
@@ -98,7 +98,7 @@ public class CurrentMinimap {
       }
     }
 
-    if (onlyFtbChunksLoaded() && player.level().isClientSide) {
+    if (onlyFtbChunksLoaded() && player.level.isClientSide) {
       FTBChunksClientConfig.MINIMAP_ENABLED.set(false);
     }
 
