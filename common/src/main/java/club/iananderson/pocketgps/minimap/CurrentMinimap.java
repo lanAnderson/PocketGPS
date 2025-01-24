@@ -9,6 +9,8 @@ import dev.ftb.mods.ftbchunks.client.FTBChunksClientConfig;
 import java.util.ArrayList;
 import java.util.List;
 import journeymap.client.ui.UIManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -52,7 +54,7 @@ public class CurrentMinimap {
       return;
     }
 
-    if (journeyMapLoaded()) {
+    if (journeyMapLoaded() && player.level().isClientSide) {
       UIManager.INSTANCE.setMiniMapEnabled(true);
     }
 
@@ -68,9 +70,11 @@ public class CurrentMinimap {
       }
     }
 
-    if (onlyFtbChunksLoaded()) {
+    if (onlyFtbChunksLoaded() && player.level().isClientSide) {
       FTBChunksClientConfig.MINIMAP_ENABLED.set(true);
     }
+
+    PocketGpsClient.setIsDrawingMap(true);
   }
 
   public static void removeMinimap(Player player) {
@@ -78,7 +82,7 @@ public class CurrentMinimap {
       return;
     }
 
-    if (journeyMapLoaded()) {
+    if (journeyMapLoaded() && player.level().isClientSide) {
       UIManager.INSTANCE.setMiniMapEnabled(false);
     }
 
@@ -94,9 +98,11 @@ public class CurrentMinimap {
       }
     }
 
-    if (onlyFtbChunksLoaded()) {
+    if (onlyFtbChunksLoaded() && player.level().isClientSide) {
       FTBChunksClientConfig.MINIMAP_ENABLED.set(false);
     }
+
+    PocketGpsClient.setIsDrawingMap(false);
   }
 
   public enum Minimaps {
