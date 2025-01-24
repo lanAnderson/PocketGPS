@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class CurrentMinimap {
@@ -50,7 +51,7 @@ public class CurrentMinimap {
   }
 
   public static void displayMinimap(Player player) {
-    if (player == null || PocketGpsClient.isDrawingMap()) {
+    if (player instanceof ServerPlayer || PocketGpsClient.isDrawingMap()) {
       return;
     }
 
@@ -78,7 +79,7 @@ public class CurrentMinimap {
   }
 
   public static void removeMinimap(Player player) {
-    if (player == null || !PocketGpsClient.isDrawingMap()) {
+    if (player instanceof ServerPlayer || !PocketGpsClient.isDrawingMap()) {
       return;
     }
 
