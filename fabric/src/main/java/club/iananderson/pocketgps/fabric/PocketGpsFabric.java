@@ -1,9 +1,11 @@
 package club.iananderson.pocketgps.fabric;
 
 import club.iananderson.pocketgps.PocketGps;
+import club.iananderson.pocketgps.client.PocketGpsClient;
 import club.iananderson.pocketgps.fabric.registry.FabricRegistration;
 import club.iananderson.pocketgps.impl.accessories.AccessoriesCompat;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 
 public final class PocketGpsFabric implements ModInitializer {
   //Todo ---- Find out why it wont receive power on servers only
